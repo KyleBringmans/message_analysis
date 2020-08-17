@@ -1,10 +1,14 @@
 # Author: Kyle Bringmans
 
 import json
+import yaml
 import os
+import sys
 
 import numpy as np
 import re
+
+from termcolor import colored
 
 
 def listdir_no_hidden(path):
@@ -63,3 +67,23 @@ def get_messages(path_to_folders, interactions=False):
         except FileNotFoundError as error:
             print("ERROR key {} not found in dict".format(error))
     return messages
+
+
+def get_params_from_config(path):
+    with open(path, 'r') as stream:
+        try:
+            params = yaml.safe_load(stream)
+        except yaml.YAMLError as exc:
+            print(exc)
+
+    path_to_script = sys.argv[0]
+    f_name = path_to_script.split('/')[-1]
+    image_name = f_name.replace('.py', '.png')
+    params['f_name'] = image_name
+
+    print(colored("Arguments used:\n", 'green'))
+
+    for arg, val in params.items():
+        print("{}: {}".format(arg, colored(val, 'magenta')))
+    print("-----")
+    return params

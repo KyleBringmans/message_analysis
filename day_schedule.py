@@ -5,6 +5,8 @@
 Generates the distribution of interactions throughout the day for the top-N facebook contacts
 """
 
+from util import listdir_no_hidden, get_color, get_params_from_config
+
 import json
 import os
 from datetime import datetime
@@ -16,49 +18,21 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 
-def listdir_no_hidden(path):
-    """
-    Yield subdirectories without hidden files
-    Parameters
-    ----------
-    path : str
-        The path to the directory to list
-
-    Returns
-    -------
-    f : str
-        a subdirectory name
-    """
-    for directory in os.listdir(path):
-        if not directory.startswith('.'):
-            yield directory
-
-
-def get_color():
-    """
-    Return a random RGB colour
-
-    Returns
-    -------
-    list
-        list of 3 random floats which represents an RGB colour
-    """
-    while True:
-        yield np.random.uniform(low=0, high=1, size=(3,))
-
-
 if __name__ == '__main__':
     # Allow usage of pandas arrays in matplotlib
     register_matplotlib_converters()
 
-    # Filename to write figure to
-    F_NAME = 'day_schedule.png'
-    # Number of contacts to plot
-    N = 10
-    # Make all y-axes same height
-    EQ_Y = True
+    path_to_config = 'config.yaml'
+    args = get_params_from_config(path_to_config)
 
-    FOLDERS_PATH = 'messages/inbox'
+    # Filename to write figure to
+    F_NAME = args['f_name']
+    # Number of contacts to plot
+    N = args['n']
+    # Make all y-axes same height
+    EQ_Y = args['eq_y']
+
+    FOLDERS_PATH = args['messages_folder']
     # Start and end date
     START = '01/09/2019'
     END = '20/08/2020'
@@ -125,7 +99,7 @@ if __name__ == '__main__':
         for j, ax in enumerate(ax_lst):
             p, mgs = msg_tuples[j + WIDTH * i]
             # Get timestamps from messages
-            mgs = [int(datetime.utcfromtimestamp(m['timestamp_ms']/1000)
+            mgs = [int(datetime.utcfromtimestamp(m['timestamp_ms'] / 1000)
                        .strftime('%H')) for m in mgs]
             # Plot user data in histogram their name as label and 50% colour transparency
             # i+1 and j+1 to avoid the zeros since 0*x = x*0 = 0*0 which is not unique

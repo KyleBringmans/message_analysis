@@ -5,6 +5,8 @@
 Plots the amount of user interactions with the chat for each user sorted by amount of interactions
 """
 
+from util import get_params_from_config
+
 import json
 import os
 
@@ -15,10 +17,13 @@ if __name__ == '__main__':
     # Allow usage of pandas arrays in matplotlib
     register_matplotlib_converters()
 
-    N = 10
-    F_NAME = 'usage.png'
+    path_to_config = 'config.yaml'
+    args = get_params_from_config(path_to_config)
+
+    N = args['n']
+    F_NAME = args['f_name']
     GROUPCHAT_NAME = 'E_4nFvy2IPiQ'
-    PATH = 'messages/inbox/' + GROUPCHAT_NAME
+    PATH = args['messages_folder'] + GROUPCHAT_NAME
 
     # Find all users in groupchat
     messages = []

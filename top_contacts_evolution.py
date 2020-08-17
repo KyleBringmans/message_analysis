@@ -4,18 +4,21 @@
 """
 Plots the top-N contacts the user interacts with on Facebook in a pie chart
 """
-from util import get_messages
+from util import get_messages, get_params_from_config
 
 from datetime import datetime
 
 from matplotlib import pyplot as plt
 
 if __name__ == '__main__':
+    path_to_config = 'config.yaml'
+    args = get_params_from_config(path_to_config)
+
     # Number of contacts to find
-    N = 15
+    N = args['n']
     # Filename for plot
-    F_NAME = 'top_n.png'
-    FOLDERS_PATH = 'messages/inbox'
+    F_NAME = args['f_name']
+    FOLDERS_PATH = args['messages_folder']
 
     messages = get_messages(FOLDERS_PATH)
 
@@ -99,4 +102,4 @@ if __name__ == '__main__':
         ax[i].set_title(yr)
     # Resize the saved image to the correct resolution so all items are shown
     plt.tight_layout()
-    plt.savefig('images/' + 'activity_over_the_years.png')
+    plt.savefig('images/' + F_NAME)

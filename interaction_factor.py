@@ -5,7 +5,7 @@
 Generates activity histograms of the top-N most contacted facebook friends
 """
 
-from util import get_messages
+from util import get_messages, get_params_from_config
 
 import os
 import sys
@@ -13,37 +13,23 @@ import json
 from datetime import datetime
 import time
 import re
-import argparse
 
 from pandas.plotting import register_matplotlib_converters
 from termcolor import colored
 
 
 if __name__ == '__main__':
-    # Define and create argument parser
-    parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('-fn', dest='F_NAME', default='activity.png',
-                        help='Filename to write figure to')
-    parser.add_argument('-n', dest='N', default=10,
-                        help='Number of contacts to plot')
-    parser.add_argument('-u', dest='USERNAME', default='Kyle Bringmans',
-                        help='Name of user')
-
-    args = parser.parse_args()
-
-    print(colored("Arguments used:\n", 'green'))
-    for arg, val in args.__dict__.items():
-        print("{}: {}".format(arg, colored(val, 'magenta')))
-    print("-----")
+    path_to_config = 'config.yaml'
+    args = get_params_from_config(path_to_config)
 
     # Allow usage of pandas arrays in matplotlib
     register_matplotlib_converters()
 
     # Assign arguments to variables
-    F_NAME = args.F_NAME
-    N = args.N
-    USERNAME = args.USERNAME
-    FOLDERS_PATH = 'messages/inbox'
+    F_NAME = args['f_name']
+    N = args['n']
+    USERNAME = args['username']
+    FOLDERS_PATH = args['messages_folder']
 
     # Start and end date
     START = '01/09/2019'

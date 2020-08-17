@@ -5,7 +5,7 @@
 Generates activity histograms of the top-N most contacted facebook friends
 """
 
-from util import get_messages, get_color
+from util import get_messages, get_color, get_params_from_config
 
 import os
 import sys
@@ -13,45 +13,26 @@ import json
 from datetime import datetime
 import time
 import re
-import argparse
 
 from pandas.plotting import register_matplotlib_converters
 from matplotlib import pyplot as plt
 import numpy as np
 from termcolor import colored
 
-
 if __name__ == '__main__':
-    # Define and create argument parser
-    parser = argparse.ArgumentParser(description='Process some integers.')
-    parser.add_argument('-fn', dest='F_NAME', default='activity.png',
-                        help='Filename to write figure to')
-    parser.add_argument('-n', dest='N', default=10,
-                        help='Number of contacts to plot')
-    parser.add_argument('-eq', dest='EQ_Y', default=False,
-                        help='Make all y-axes same height or not')
-    parser.add_argument('--cumul', dest='CUMULATIVE', default=True,
-                        help='Use cumulative distribution instead of histogram')
-    parser.add_argument('-bins', dest='N_BINS', default=100,
-                        help='Number of bins for the histogram')
-
-    args = parser.parse_args()
-
-    print(colored("Arguments used:\n", 'green'))
-    for arg, val in args.__dict__.items():
-        print("{}: {}".format(arg, colored(val, 'magenta')))
-    print("-----")
+    path_to_config = 'config.yaml'
+    args = get_params_from_config(path_to_config)
 
     # Allow usage of pandas arrays in matplotlib
     register_matplotlib_converters()
 
     # Assign arguments to variables
-    F_NAME = args.F_NAME
-    N = args.N
-    EQ_Y = args.EQ_Y
-    CUMULATIVE = args.CUMULATIVE
-    N_BINS = args.N_BINS
-    FOLDERS_PATH = 'messages/inbox'
+    F_NAME = args['f_name']
+    N = args['n']
+    EQ_Y = args['eq_y']
+    CUMULATIVE = args['cumulative']
+    N_BINS = args['n_bins']
+    FOLDERS_PATH = args['messages_folder']
 
     # Start and end date
     START = '01/09/2019'
