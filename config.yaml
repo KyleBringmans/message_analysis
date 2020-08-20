@@ -2,4 +2,5 @@ n: 10
 eq_y: False
 cumulative: True
 n_bins: 100
-messages_folder: 'messages/inbox'
+messages_folder: 'messages/inbox/'
+username: 'Kyle Bringmans'

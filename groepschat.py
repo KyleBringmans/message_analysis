@@ -22,7 +22,7 @@ if __name__ == '__main__':
 
     N = args['n']
     F_NAME = args['f_name']
-    GROUPCHAT_NAME = 'E_4nFvy2IPiQ'
+    GROUPCHAT_NAME = 'EmmaenKylechaPmettoeschouwers_4nFvy2IPiQ'
     PATH = args['messages_folder'] + GROUPCHAT_NAME
 
     # Find all users in groupchat
