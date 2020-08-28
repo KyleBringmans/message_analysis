@@ -38,10 +38,6 @@ if __name__ == '__main__':
     # factor with which unix timestamps differ from millisecond interval
     MS_OFFSET_FACTOR = 1000
 
-    # Convert dates to unix time
-    min_date = time.mktime(datetime.strptime(START, "%d/%m/%Y").timetuple()) * MS_OFFSET_FACTOR
-    max_date = time.mktime(datetime.strptime(END, "%d/%m/%Y").timetuple()) * MS_OFFSET_FACTOR
-
     # Count number of interactions
     interactions = get_messages(FOLDERS_PATH, interactions=True)
 

@@ -61,7 +61,7 @@ def get_messages(path_to_folders, interactions=False):
                         data = json.load(json_file)
                         # Add total interactions to existing count for person p
                         if interactions:
-                            messages[p] = messages.get(p, 0) + len(data['messages'])
+                            messages[p_name] = messages.get(p_name, 0) + len(data['messages'])
                         else:
                             messages[p_name] = messages.get(p_name, []) + data['messages']
         except FileNotFoundError as error:

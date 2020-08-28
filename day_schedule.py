@@ -37,10 +37,6 @@ if __name__ == '__main__':
     START = '01/09/2019'
     END = '20/08/2020'
 
-    # Convert dates to unix time
-    min_date = time.mktime(datetime.strptime(START, "%d/%m/%Y").timetuple()) * 1000
-    max_date = time.mktime(datetime.strptime(END, "%d/%m/%Y").timetuple()) * 1000
-
     # Get all contacts
     ppl = listdir_no_hidden(FOLDERS_PATH)
 
