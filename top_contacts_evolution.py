@@ -100,6 +100,6 @@ if __name__ == '__main__':
         plt.setp(ax[i].get_xticklabels(), rotation=5, horizontalalignment='right')
         # Set the title for the subplot to the year for which the data is shown
         ax[i].set_title(yr)
-    # Resize the saved image to the correct resolution so all items are shown
+    # Resize the image to the correct resolution so all items are shown
     plt.tight_layout()
     plt.savefig('images/' + F_NAME)

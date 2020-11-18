@@ -9,7 +9,6 @@ from util import get_messages, get_params_from_config
 
 from matplotlib import pyplot as plt
 
-
 if __name__ == '__main__':
     path_to_config = 'config.yaml'
     args = get_params_from_config(path_to_config)
@@ -26,12 +25,21 @@ if __name__ == '__main__':
     # Sort contacts by interactions
     sorted_interactions = sorted(interactions.items(), reverse=True, key=lambda a: a[1])
 
-    # Prepare to N contacts for plotting
+    # Prepare the N contacts for plotting
     x, y = zip(*sorted_interactions[:N])
+
+    # Create labels
+    labels = [xi + '\n' + '(' + str(yi) + ')' for (xi, yi) in zip(x, y)]
+
+    # Create 'others' class
+    _, y_rest = zip(*sorted_interactions[N:])
+    s = sum(y_rest)
+    y = y + (s,)
+    labels.append('others' + '\n' + '(' + str(s) + ')')
 
     # Plot data
     fig, ax = plt.subplots(1, 1)
-    plt.pie(y, labels=x, autopct='%1.1f%%')
+    plt.pie(y, labels=labels, autopct='%1.1f%%')
 
     # Add grid
     plt.grid(True)

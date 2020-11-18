@@ -39,7 +39,7 @@ if __name__ == '__main__':
     MS_OFFSET_FACTOR = 1000
 
     # Count number of interactions
-    interactions = get_messages(FOLDERS_PATH, interactions=True)
+    interactions = get_messages(FOLDERS_PATH, interactions=True, clean_names=False)
 
     # Sort contacts by interactions
     print("Calculating top {} contacts".format(colored(N, 'red')))

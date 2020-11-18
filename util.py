@@ -42,7 +42,7 @@ def get_color():
         yield np.random.uniform(low=0, high=1, size=(3,))
 
 
-def get_messages(path_to_folders, interactions=False):
+def get_messages(path_to_folders, interactions=False, clean_names=True):
     # List all contacts
     ppl = listdir_no_hidden(path_to_folders)
 
@@ -51,7 +51,10 @@ def get_messages(path_to_folders, interactions=False):
     # Iterate over all contacts
     for p in ppl:
         # Get proper name of person without suffix and add space between name and surname
-        p_name = re.sub(r"(\w)([A-Z])", r"\1 \2", p.split('_')[0])
+        if clean_names:
+            p_name = re.sub(r"(\w)([A-Z])", r"\1 \2", p.split('_')[0])
+        else:
+            p_name = p
         try:
             p_path = path_to_folders + '/' + p
             # Iterate over all message files for contact p

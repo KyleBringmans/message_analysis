@@ -45,7 +45,7 @@ if __name__ == '__main__':
     min_date = time.mktime(datetime.strptime(START, "%d/%m/%Y").timetuple()) * MS_OFFSET_FACTOR
     max_date = time.mktime(datetime.strptime(END, "%d/%m/%Y").timetuple()) * MS_OFFSET_FACTOR
 
-    interactions = get_messages(FOLDERS_PATH, interactions=True)
+    interactions = get_messages(FOLDERS_PATH, interactions=True, clean_names=False)
 
     # Sort contacts by interactions
     print("Calculating top {} contacts".format(colored(N, 'red')))

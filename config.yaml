@@ -1,4 +1,4 @@
-n: 10
+n: 5
 eq_y: False
 cumulative: True
 n_bins: 100
